@@ -1,7 +1,4 @@
-# Install dependencies if running in a new environment
-!pip install openai streamlit
 
-# Import necessary libraries
 import streamlit as st
 from openai import OpenAI
 
