@@ -3,13 +3,13 @@ import streamlit as st
 from openai import OpenAI, OpenAIError
 
 # Define API parameters
-api_key ="8772096b1b3248128cf4072be826ee90"  # Ensure this is set in your environment
+api_key = os.getenv("OPENAI_API_KEY")  # Set your API key in the environment
 base_url = "https://api.aimlapi.com"
 model_name = "meta-llama/Llama-3.2-3B-Instruct-Turbo"
 
 client = OpenAI(api_key=api_key, base_url=base_url)
 
-# Function to get project assignment
+# Function to get project assignment and summary
 def get_project_assignment(project_description, team_members):
     try:
         # Construct expertise list
@@ -18,7 +18,8 @@ def get_project_assignment(project_description, team_members):
         user_input = (
             f"The project is described as: '{project_description}'.\n"
             f"The following team members with different expertise are involved:\n{expertise_list}.\n"
-            "Please intelligently assign tasks based on their expertise and guide them."
+            "Please intelligently assign tasks based on their expertise, "
+            "summarize the project, and provide expected outcomes."
         )
         
         response = client.chat.completions.create(
@@ -26,7 +27,7 @@ def get_project_assignment(project_description, team_members):
             messages=[
                 {
                     "role": "system",
-                    "content": "You are an AI assistant who assigns project tasks intelligently based on expertise.",
+                    "content": "You are an AI assistant who assigns project tasks intelligently based on expertise, summarizes project details, and provides expected outcomes.",
                 },
                 {
                     "role": "user",
@@ -91,15 +92,23 @@ def main():
             with st.spinner("Assigning tasks..."):
                 assignment_response = get_project_assignment(project_description, team_members)
                 st.success("Tasks Assigned Successfully!")
-                st.subheader("Task Assignments")
+                st.subheader("Task Assignments and Project Summary")
 
                 # Display the assignments
                 st.write(assignment_response)
 
-                # Optional: Format the assignments nicely
-                # Assuming the response is in a structured format, like JSON
-                # You can parse and display it accordingly
-                # For now, we'll display it as plain text
+                # Provide starter code files for download
+                st.subheader("Starter Code Files")
+                st.markdown("Click the links below to download starter code files:")
+                st.download_button(
+                    label="Download Starter Code (Python)",
+                    data="def start_project():\n    # Your starter code here\n    pass",
+                    file_name="starter_code.py",
+                    mime="text/x-python"
+                )
+
+                # You can add more starter code files as needed
+                # e.g., JSON, HTML templates, etc.
 
 if __name__ == "__main__":
     main()
