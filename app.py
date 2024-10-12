@@ -3,7 +3,7 @@ import streamlit as st
 from openai import OpenAI, OpenAIError
 
 # Define API parameters
-api_key = os.getenv("OPENAI_API_KEY")  # Set your API key in the environment
+api_key = "8772096b1b3248128cf4072be826ee90"
 base_url = "https://api.aimlapi.com"
 model_name = "meta-llama/Llama-3.2-3B-Instruct-Turbo"
 
