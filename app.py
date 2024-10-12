@@ -1,4 +1,4 @@
-
+# Import necessary libraries
 import streamlit as st
 from openai import OpenAI
 
@@ -31,14 +31,36 @@ def get_llama_response(api_key, user_input):
 
 # Streamlit app interface
 def main():
+    # Set the title of the app
     st.title("Llama-3.2-3B Instruct Turbo Chat")
     
-    # Input for the API key
-    api_key = st.text_input("Enter your API Key:", type="password")
+    # Sidebar for API key input
+    st.sidebar.title("Settings")
+    api_key = st.sidebar.text_input("Enter your API Key:", type="password")
 
-    # Input for the user question
+    # Text area for user input
     user_input = st.text_area("Ask the AI assistant a question:", value="Why is the sky blue?")
     
+    # Add some custom CSS to style the "Get Response" button
+    st.markdown(
+        """
+        <style>
+        div.stButton > button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        div.stButton > button:hover {
+            background-color: #45a049;
+        }
+        </style>
+        """, unsafe_allow_html=True
+    )
+
     # Button to submit the query
     if st.button("Get Response"):
         if api_key and user_input:
@@ -53,4 +75,3 @@ def main():
 # Run the app
 if __name__ == "__main__":
     main()
-
