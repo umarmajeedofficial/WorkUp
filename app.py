@@ -3,9 +3,9 @@ import streamlit as st
 from openai import OpenAI, OpenAIError
 
 # Define API parameters
-api_key = os.getenv("8772096b1b3248128cf4072be826ee90")  # Ensure this is set in your environment
-base_url = os.getenv("API_BASE_URL", "https://api.aimlapi.com")
-model_name = os.getenv("MODEL_NAME", "meta-llama/Llama-3.2-3B-Instruct-Turbo")
+api_key ="8772096b1b3248128cf4072be826ee90"  # Ensure this is set in your environment
+base_url = "https://api.aimlapi.com"
+model_name = "meta-llama/Llama-3.2-3B-Instruct-Turbo"
 
 client = OpenAI(api_key=api_key, base_url=base_url)
 
